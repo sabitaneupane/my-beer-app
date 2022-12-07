@@ -19,21 +19,23 @@ const BeerCardView = (props: IPros) => {
       {beerData &&
         beerData.map((beer: any) => {
           return (
-            <Card className="m-2" key={beer.id}>
+            <Card className="beer-card m-2" key={beer.id}>
               <Row>
                 <Col xs={2}>
                   <Card.Img
                     variant="bottom"
-                    src={beerImg}
+                    src={beer.image_url}
                     className="beers-img"
                   />
                 </Col>
-                <Col>
+                <Col className="beer-card-text-content">
                   <Card.Body>
                     <Card.Title>{beer.name}</Card.Title>
                     <Card.Text className="beer-text-content">
                       <span className="beer-tagline">{beer.tagline}</span>
-                      <span className="beer-description">{beer.description}</span>
+                      <span className="beer-description">
+                        {beer.description}
+                      </span>
                     </Card.Text>
                   </Card.Body>
                 </Col>

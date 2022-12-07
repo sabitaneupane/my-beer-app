@@ -18,7 +18,19 @@
 }
 
 .beers-img {
-  padding: 10px;
+  margin: 20px 40px 10px;
+  width: 40px;
+  max-height: 120px;
+}
+
+.beer-card-text-content {
+  overflow: hidden;
+}
+
+.beer-description {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .beer-text-content span {
