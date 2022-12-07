@@ -14,15 +14,23 @@
   margin: auto;
   margin-top: 40px;
   padding: 30px;
+  margin-bottom: 600px;
 }
 
 .beers-img {
   padding: 10px;
 }
 
+.beer-text-content span {
+  display: block;
+}
 .beer-tagline {
   color: #d29a28;
   font-size: inherit;
+}
+
+.beer-description {
+  margin-top: 10px;
 }
 
 .empty-state-container {
@@ -42,4 +50,17 @@
   position: absolute;
   top: 0px;
   right: 0px;
+}
+
+.click-here-text {
+  color: #0b5ed7;
+  cursor: pointer;
+}
+
+.form-beers-img {
+  width: 80px;
+  height: 80px;
+  margin-bottom: 10px;
+  border: 1px solid rgb(231, 229, 229);
+  padding: 10px;
 }
