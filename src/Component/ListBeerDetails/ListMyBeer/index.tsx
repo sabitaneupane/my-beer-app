@@ -1,7 +1,17 @@
 import React from "react";
+import BeerCardView from "../BeerCardView";
+import { myBeerList } from "../../../Mock/myBeerList";
 
 const ListMyBeers = () => {
-  return <div> My Beer List </div>;
+  const emptyBeerList: any = [];
+
+  return (
+    <>
+      {/* empty view */}
+      <BeerCardView beerData={emptyBeerList} />
+      <BeerCardView beerData={myBeerList} />
+    </>
+  );
 };
 
 export default ListMyBeers;

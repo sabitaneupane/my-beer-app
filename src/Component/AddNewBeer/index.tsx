@@ -1,7 +1,14 @@
 import React from "react";
+import { Button } from "react-bootstrap";
 
 const AddNewBeerDetails = () => {
-  return <div> Add New Beer Details </div>;
+  return (
+    <div className="add-beer-button-container">
+      <Button variant="primary" size="sm">
+        Add a new beer
+      </Button>
+    </div>
+  );
 };
 
 export default AddNewBeerDetails;
