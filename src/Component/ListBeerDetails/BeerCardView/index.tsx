@@ -1,6 +1,5 @@
 import React from "react";
 import { Card, Row, Col } from "react-bootstrap";
-import EmptyState from "../../../Utils/EmptyState";
 import beerImg from "../../../Images/beer-img.png";
 
 interface IPros {
@@ -10,21 +9,17 @@ interface IPros {
 const BeerCardView = (props: IPros) => {
   const { beerData } = props;
 
-  if (beerData.length === 0) {
-    return <EmptyState />;
-  }
-
   return (
     <>
       {beerData &&
-        beerData.map((beer: any) => {
+        beerData.map((beer: any, index: number) => {
           return (
-            <Card className="beer-card m-2" key={beer.id}>
+            <Card className="beer-card m-2" key={beer.id ? beer.id : index}>
               <Row>
                 <Col xs={2}>
                   <Card.Img
                     variant="bottom"
-                    src={beer.image_url}
+                    src={beer.image_url ? beer.image_url : beerImg}
                     className="beers-img"
                   />
                 </Col>
@@ -32,7 +27,10 @@ const BeerCardView = (props: IPros) => {
                   <Card.Body>
                     <Card.Title>{beer.name}</Card.Title>
                     <Card.Text className="beer-text-content">
-                      <span className="beer-tagline">{beer.tagline}</span>
+                      <span className="beer-tagline">
+                        {beer.tagline}
+                        {beer.genre}
+                      </span>
                       <span className="beer-description">
                         {beer.description}
                       </span>
