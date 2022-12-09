@@ -1,6 +1,5 @@
 import React, { useState } from "react";
-import { Card, Button, Modal, Form } from "react-bootstrap";
-import beerImg from "../../../Images/beer-img.png";
+import { Button, Modal, Alert } from "react-bootstrap";
 import AddBeerForm from "../AddBeerForm";
 
 interface IProps {
@@ -10,9 +9,64 @@ interface IProps {
 
 const AddBeerModal = (props: IProps) => {
   const { showAddBeerModal, handleAddNewBeerButton } = props;
+  const [beerFormData, setBeerFormData] = useState<any>({
+    beerName: "",
+    beerGenre: "",
+    beerDescription: "",
+  });
+  const [alertObj, setAlertObj] = useState<any>({
+    isShown: false,
+    variant: "",
+    message: "",
+  });
 
   const handleClose = () => {
     handleAddNewBeerButton(false);
+  };
+
+  const beerDataValidate = () => {
+    if (
+      beerFormData.beerName === "" ||
+      beerFormData.beerGenre === "" ||
+      beerFormData.beerDescription === ""
+    ) {
+      return false;
+    } else {
+      return true;
+    }
+  };
+
+  const handleSaveBeerData = () => {
+    const isValid = beerDataValidate();
+
+    setAlertObj(
+      isValid
+        ? {
+            isShown: true,
+            variant: "success",
+            message: "Beer data saved successfully.",
+          }
+        : {
+            isShown: true,
+            variant: "danger",
+            message: "All field are required.",
+          }
+    );
+  };
+
+  const handleFormData = (formData: any) => {
+    setBeerFormData(formData);
+  };
+
+  const alertContent = () => {
+    return (
+      alertObj &&
+      alertObj.isShown && (
+        <Alert key={alertObj.variant} variant={alertObj.variant}>
+          {alertObj.message}
+        </Alert>
+      )
+    );
   };
 
   return (
@@ -21,13 +75,14 @@ const AddBeerModal = (props: IProps) => {
         <Modal.Title>Add a New Beer</Modal.Title>
       </Modal.Header>
       <Modal.Body>
-        <AddBeerForm />
+        {alertContent()}
+        <AddBeerForm handleFormData={handleFormData} />
       </Modal.Body>
       <Modal.Footer>
         <Button variant="secondary" onClick={handleClose}>
           Cancel
         </Button>
-        <Button variant="primary" onClick={handleClose}>
+        <Button variant="primary" onClick={() => handleSaveBeerData()}>
           Save
         </Button>
       </Modal.Footer>
