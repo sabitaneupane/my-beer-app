@@ -9,6 +9,14 @@ interface IPros {
 const BeerCardView = (props: IPros) => {
   const { beerData } = props;
 
+  const getIngredientsDetails = (beer: any) => {
+    let ingredientsDetails;
+    if (beer && beer.ingredients) {
+      ingredientsDetails = Object.keys(beer.ingredients);
+    }
+    return ingredientsDetails;
+  };
+
   const cardImgContent = (beer: any) => {
     return (
       <Card.Img
@@ -19,13 +27,14 @@ const BeerCardView = (props: IPros) => {
     );
   };
   const toolTipContent = (beer: any) => {
+    const ingredients =  getIngredientsDetails(beer)
     return (
       <OverlayTrigger
         placement="top"
         delay={{ show: 250, hide: 400 }}
         overlay={
           <Tooltip id={`tooltip-top`}>
-            Tooltip on <strong>top</strong>.
+            Ingredients: {ingredients && ingredients.toString()}
           </Tooltip>
         }
       >
