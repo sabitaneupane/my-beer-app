@@ -24,7 +24,6 @@
   margin: 20px 40px 10px;
   width: 40px;
   max-height: 120px;
-  cursor: pointer;
 }
 
 .beer-card-text-content {
@@ -87,4 +86,8 @@
   cursor: pointer;
   text-align: center;
   padding: 10px;
+}
+
+.cursor-pointer{
+  cursor: pointer;
 }

@@ -59,7 +59,7 @@ const BeerCardView = (props: IPros) => {
       <Card.Img
         variant="bottom"
         src={beer.image_url ? beer.image_url : beerImg}
-        className="beers-img"
+        className={`beers-img ${beer.ingredients && "cursor-pointer"}`}
       />
     );
   };
@@ -88,7 +88,9 @@ const BeerCardView = (props: IPros) => {
             <Card className="beer-card m-2" key={beer.id ? beer.id : index}>
               <Row>
                 <Col xs={2} className="card-img-section">
-                  {toolTipContent(beer)}
+                  {beer.ingredients
+                    ? toolTipContent(beer)
+                    : cardImgContent(beer)}
                 </Col>
 
                 <Col className="beer-card-text-content">
