@@ -10,7 +10,7 @@ const ListAllBeers = () => {
   const [allBeerList, setAllBeerList] = useState<any>([]);
   const [isError, setIsError] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [perPageValue, setPerPageValue] = useState<number>(3);
+  const [perPageValue, setPerPageValue] = useState<number>(4);
   const [totalClickCounter, setTotalClickCounter] = useState<number>(0);
   const [isLoadMoreLoading, setIsLoadMoreLoading] = useState<boolean>(false);
   const [isLoadMoreError, setIsLoadMoreError] = useState<boolean>(false);

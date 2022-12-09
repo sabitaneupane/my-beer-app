@@ -17,7 +17,7 @@ const AddNewBeerDetails = () => {
           size="sm"
           onClick={() => handleAddNewBeerButton(true)}
         >
-          Add a new beer
+          +
         </Button>
       </div>
 

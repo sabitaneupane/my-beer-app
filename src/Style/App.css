@@ -9,7 +9,7 @@
 }
 
 .list-beer-container {
-  width: 80%;
+  width: 98%;
   height: 100vh;
   margin: auto;
   margin-top: 40px;
@@ -21,8 +21,8 @@
 }
 
 .beers-img {
-  margin: 20px 40px 10px;
-  width: 40px;
+  margin: 18px 38px 10px;
+  width: 32px;
   max-height: 120px;
 }
 

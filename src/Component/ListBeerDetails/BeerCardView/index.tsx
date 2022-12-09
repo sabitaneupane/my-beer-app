@@ -7,6 +7,13 @@ interface IPros {
 }
 
 const BeerCardView = (props: IPros) => {
+  const [width, setWidth] = React.useState(window.innerWidth);
+  const breakpoint = 992;
+
+  React.useEffect(() => {
+    window.addEventListener("resize", () => setWidth(window.innerWidth));
+  }, []);
+
   const { beerData } = props;
 
   const getIngredientsDetails = (beer: any) => {
@@ -80,38 +87,58 @@ const BeerCardView = (props: IPros) => {
     );
   };
 
-  return (
-    <>
-      {beerData &&
-        beerData.map((beer: any, index: number) => {
-          return (
-            <Card className="beer-card m-2" key={beer.id ? beer.id : index}>
-              <Row>
-                <Col xs={2} className="card-img-section">
-                  {beer.ingredients
-                    ? toolTipContent(beer)
-                    : cardImgContent(beer)}
-                </Col>
+  const cardViewContent = (deviceViewType: string) => {
+    const isMobileView = deviceViewType === "mobileView";
+    return (
+      <>
+        <Row>
+          {beerData &&
+            beerData.map((beer: any, index: number) => {
+              return (
+                <Col xs={isMobileView ? 12 : 6}>
+                  <Card
+                    className="beer-card m-2"
+                    key={beer.id ? beer.id : index}
+                  >
+                    <Row>
+                      <Col
+                        xs={isMobileView ? 3 : 4}
+                        sm={3}
+                        md={2}
+                        lg={2}
+                        className="card-img-section"
+                      >
+                        {beer.ingredients
+                          ? toolTipContent(beer)
+                          : cardImgContent(beer)}
+                      </Col>
 
-                <Col className="beer-card-text-content">
-                  <Card.Body>
-                    <Card.Title>{beer.name}</Card.Title>
-                    <Card.Text className="beer-text-content">
-                      <span className="beer-tagline">
-                        {beer.tagline}
-                        {beer.genre}
-                      </span>
-                      <span className="beer-description">
-                        {beer.description}
-                      </span>
-                    </Card.Text>
-                  </Card.Body>
+                      <Col className="beer-card-text-content">
+                        <Card.Body>
+                          <Card.Title>{beer.name}</Card.Title>
+                          <Card.Text className="beer-text-content">
+                            <span className="beer-tagline">
+                              {beer.tagline}
+                              {beer.genre}
+                            </span>
+                            <span className="beer-description">
+                              {beer.description}
+                            </span>
+                          </Card.Text>
+                        </Card.Body>
+                      </Col>
+                    </Row>
+                  </Card>
                 </Col>
-              </Row>
-            </Card>
-          );
-        })}
-    </>
+              );
+            })}
+        </Row>
+      </>
+    );
+  };
+
+  return (
+    <>{cardViewContent(width < breakpoint ? "mobileView" : "desktopView")}</>
   );
 };
 
