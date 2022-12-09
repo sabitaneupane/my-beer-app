@@ -1,5 +1,5 @@
 import React from "react";
-import { Card, Row, Col } from "react-bootstrap";
+import { Card, Row, Col, OverlayTrigger, Tooltip } from "react-bootstrap";
 import beerImg from "../../../Images/beer-img.png";
 
 interface IPros {
@@ -9,6 +9,31 @@ interface IPros {
 const BeerCardView = (props: IPros) => {
   const { beerData } = props;
 
+  const cardImgContent = (beer: any) => {
+    return (
+      <Card.Img
+        variant="bottom"
+        src={beer.image_url ? beer.image_url : beerImg}
+        className="beers-img"
+      />
+    );
+  };
+  const toolTipContent = (beer: any) => {
+    return (
+      <OverlayTrigger
+        placement="top"
+        delay={{ show: 250, hide: 400 }}
+        overlay={
+          <Tooltip id={`tooltip-top`}>
+            Tooltip on <strong>top</strong>.
+          </Tooltip>
+        }
+      >
+        {cardImgContent(beer)}
+      </OverlayTrigger>
+    );
+  };
+
   return (
     <>
       {beerData &&
@@ -16,13 +41,10 @@ const BeerCardView = (props: IPros) => {
           return (
             <Card className="beer-card m-2" key={beer.id ? beer.id : index}>
               <Row>
-                <Col xs={2}>
-                  <Card.Img
-                    variant="bottom"
-                    src={beer.image_url ? beer.image_url : beerImg}
-                    className="beers-img"
-                  />
+                <Col xs={2} className="card-img-section">
+                  {toolTipContent(beer)}
                 </Col>
+
                 <Col className="beer-card-text-content">
                   <Card.Body>
                     <Card.Title>{beer.name}</Card.Title>
