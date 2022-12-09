@@ -10,9 +10,9 @@ interface IProps {
 const AddBeerModal = (props: IProps) => {
   const { showAddBeerModal, handleAddNewBeerButton } = props;
   const [beerFormData, setBeerFormData] = useState<any>({
-    beerName: "",
-    beerGenre: "",
-    beerDescription: "",
+    name: "",
+    genre: "",
+    description: "",
   });
   const [alertObj, setAlertObj] = useState<any>({
     isShown: false,
@@ -26,9 +26,9 @@ const AddBeerModal = (props: IProps) => {
 
   const beerDataValidate = () => {
     if (
-      beerFormData.beerName === "" ||
+      beerFormData.name === "" ||
       beerFormData.beerGenre === "" ||
-      beerFormData.beerDescription === ""
+      beerFormData.description === ""
     ) {
       return false;
     } else {

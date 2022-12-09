@@ -15,23 +15,22 @@ const AddBeerForm = (props: IProps) => {
 
   const handleBeerName = (evt: any) => {
     setBeerName(evt.target.value);
-    sentFormData("beerName", evt.target.value);
+    sentFormData("name", evt.target.value);
   };
   const handleGenre = (evt: any) => {
     setBeerGenre(evt.target.value);
-    sentFormData("beerGenre", evt.target.value);
+    sentFormData("genre", evt.target.value);
   };
   const handleDescription = (evt: any) => {
     setBeerDescription(evt.target.value);
-    sentFormData("beerDescription", evt.target.value);
+    sentFormData("description", evt.target.value);
   };
 
   const sentFormData = (fieldName: string, fieldValue: string) => {
     handleFormData({
-      beerName: fieldName === "beerName" ? fieldValue : beerName,
-      beerGenre: fieldName === "beerGenre" ? fieldValue : beerGenre,
-      beerDescription:
-        fieldName === "beerDescription" ? fieldValue : beerDescription,
+      name: fieldName === "name" ? fieldValue : beerName,
+      genre: fieldName === "genre" ? fieldValue : beerGenre,
+      description: fieldName === "description" ? fieldValue : beerDescription,
     });
   };
 
