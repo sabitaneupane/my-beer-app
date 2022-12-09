@@ -1,15 +1,18 @@
-import React from "react";
+import React, { useContext } from "react";
 import BeerCardView from "../BeerCardView";
-import { myBeerList } from "../../../Mock/myBeerList";
+import MyBeerContext from "../../../Context/myBeerContext";
+import EmptyState from "../../../Utils/EmptyState";
 
 const ListMyBeers = () => {
-  const emptyBeerList: any = [];
+  const { data } = useContext(MyBeerContext);
+
+  if (!data || data.length === 0) {
+    return <EmptyState />;
+  }
 
   return (
     <>
-      {/* empty view */}
-      <BeerCardView beerData={emptyBeerList} />
-      <BeerCardView beerData={myBeerList} />
+      <BeerCardView beerData={[...data].reverse()} />
     </>
   );
 };

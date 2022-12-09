@@ -9,6 +9,7 @@ interface IProps {
 const AddBeerForm = (props: IProps) => {
   const { handleFormData } = props;
 
+
   const [beerName, setBeerName] = useState<string>("");
   const [beerGenre, setBeerGenre] = useState<string>("");
   const [beerDescription, setBeerDescription] = useState<string>("");

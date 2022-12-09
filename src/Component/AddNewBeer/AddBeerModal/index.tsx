@@ -1,6 +1,7 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Button, Modal, Alert } from "react-bootstrap";
 import AddBeerForm from "../AddBeerForm";
+import MyBeerContext from "../../../Context/myBeerContext";
 
 interface IProps {
   showAddBeerModal: boolean;
@@ -9,6 +10,8 @@ interface IProps {
 
 const AddBeerModal = (props: IProps) => {
   const { showAddBeerModal, handleAddNewBeerButton } = props;
+  const { addCustomBeerDetails } = useContext(MyBeerContext);
+
   const [beerFormData, setBeerFormData] = useState<any>({
     name: "",
     genre: "",
@@ -39,19 +42,23 @@ const AddBeerModal = (props: IProps) => {
   const handleSaveBeerData = () => {
     const isValid = beerDataValidate();
 
-    setAlertObj(
-      isValid
-        ? {
-            isShown: true,
-            variant: "success",
-            message: "Beer data saved successfully.",
-          }
-        : {
-            isShown: true,
-            variant: "danger",
-            message: "All field are required.",
-          }
-    );
+    if (!isValid) {
+      setAlertObj({
+        isShown: true,
+        variant: "danger",
+        message: "All field are required.",
+      });
+      return;
+    }
+
+    addCustomBeerDetails(beerFormData);
+    setAlertObj({
+      isShown: true,
+      variant: "success",
+      message: "Beer data saved successfully.",
+    });
+
+    handleClose();
   };
 
   const handleFormData = (formData: any) => {
