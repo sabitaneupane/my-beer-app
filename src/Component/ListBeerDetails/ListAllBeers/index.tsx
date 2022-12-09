@@ -20,15 +20,20 @@ const ListAllBeers = () => {
   const incrementCounter = 10;
 
   useEffect(() => {
-    setIsLoading(true);
     fetchBeerDetails(perPageValue, false);
-    setIsLoading(false);
   }, []);
 
   const fetchBeerDetails = async (
     perPageValue: any,
     isLoadMoreFetch: boolean
   ) => {
+
+    if (isLoadMoreFetch) {
+      setIsLoadMoreLoading(true);
+    } else {
+      setIsLoading(true);
+    }
+
     const query: any = {
       page: 1,
       perPage: perPageValue,
@@ -43,11 +48,15 @@ const ListAllBeers = () => {
         setIsError(true);
       }
     }
+
+    if (isLoadMoreFetch) {
+      setIsLoadMoreLoading(false);
+    } else {
+      setIsLoading(false);
+    }
   };
 
   const loadMoreDetails = () => {
-    setIsLoadMoreLoading(true);
-
     let newPerPageValue;
     if (perPageValue + incrementCounter <= maxNumberOfDataToLoad) {
       newPerPageValue = perPageValue + incrementCounter;
@@ -64,7 +73,6 @@ const ListAllBeers = () => {
         perPageValue + incrementCounter <= maxNumberOfDataToLoad
       );
     }
-    setIsLoadMoreLoading(false);
   };
 
   if (isLoading) {

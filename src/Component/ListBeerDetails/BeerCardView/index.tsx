@@ -10,11 +10,48 @@ const BeerCardView = (props: IPros) => {
   const { beerData } = props;
 
   const getIngredientsDetails = (beer: any) => {
-    let ingredientsDetails;
+    let ingredientsDetails: any;
+    let ingredientsList: any = {};
+
     if (beer && beer.ingredients) {
       ingredientsDetails = Object.keys(beer.ingredients);
+      for (let i = 0; i <= ingredientsDetails.length - 1; i++) {
+        ingredientsList = {
+          ...ingredientsList,
+          [ingredientsDetails[i]]: [],
+        };
+
+        const ingredientsType = beer.ingredients[ingredientsDetails[i]];
+        if (Array.isArray(ingredientsType)) {
+          ingredientsType.map((e: any) => {
+            if (!ingredientsList[ingredientsDetails[i]].includes(e.name)) {
+              ingredientsList[ingredientsDetails[i]].push(e.name);
+            }
+          });
+        } else {
+          // for string
+          ingredientsList[ingredientsDetails[i]].push(ingredientsType);
+        }
+      }
     }
-    return ingredientsDetails;
+    return ingredientsList;
+  };
+
+  const showIngredientDetails = (ingredients: any) => {
+    let list = ingredients && Object.keys(ingredients);
+    let data: string = "";
+
+    if (list) {
+      for (let i = 0; i <= list.length - 1; i++) {
+        data = data + "\n" + `"${list[i]}": ${ingredients[list[i]].toString()}`;
+      }
+    }
+
+    return (
+      <>
+        Ingredients: <br /> {data}
+      </>
+    );
   };
 
   const cardImgContent = (beer: any) => {
@@ -27,14 +64,14 @@ const BeerCardView = (props: IPros) => {
     );
   };
   const toolTipContent = (beer: any) => {
-    const ingredients =  getIngredientsDetails(beer)
+    const ingredients = getIngredientsDetails(beer);
     return (
       <OverlayTrigger
         placement="top"
         delay={{ show: 250, hide: 400 }}
         overlay={
           <Tooltip id={`tooltip-top`}>
-            Ingredients: {ingredients && ingredients.toString()}
+            {ingredients && showIngredientDetails(ingredients)}
           </Tooltip>
         }
       >
