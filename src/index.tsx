@@ -2,20 +2,17 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "./Style/index.css";
-import "./Style/App.css";
+
+import "./Style";
 import { MyBeerProvider } from "./Context/myBeerContext";
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
-  <React.StrictMode>
     <MyBeerProvider>
       <App />
     </MyBeerProvider>
-  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function

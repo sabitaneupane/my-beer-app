@@ -1,4 +1,5 @@
 import React, { useState, useEffect, createContext } from "react";
+import { Beers } from "../Types/beers";
 
 const defaultContext = {
   data: [
@@ -29,8 +30,8 @@ export const MyBeerProvider = ({ children }: any) => {
     }
   };
 
-  const addCustomBeerDetails = (customData: any) => {
-    let newData: any = [];
+  const addCustomBeerDetails = (customData: Beers) => {
+    let newData: Beers[] = [];
     newData = newData.concat(beerData);
     newData.push(customData);
     setBeerData(newData);

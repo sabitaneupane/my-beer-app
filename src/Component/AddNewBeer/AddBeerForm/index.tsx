@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Card, Form } from "react-bootstrap";
-import beerImg from "../../../Images/beer-img.png";
+import { beerImg } from "../../../Images";
 
 interface IProps {
   handleFormData: any;
@@ -8,7 +8,6 @@ interface IProps {
 
 const AddBeerForm = (props: IProps) => {
   const { handleFormData } = props;
-
 
   const [beerName, setBeerName] = useState<string>("");
   const [beerGenre, setBeerGenre] = useState<string>("");
