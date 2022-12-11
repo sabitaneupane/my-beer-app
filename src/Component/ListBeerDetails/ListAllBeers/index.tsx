@@ -5,9 +5,10 @@ import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
 import { getAllBeerList } from "../../../API";
 import Error from "../../../Utils/Error";
 import Loading from "../../../Utils/Loading";
+import { Beers } from "../../../Types/beers";
 
 const ListAllBeers = () => {
-  const [allBeerList, setAllBeerList] = useState<any>([]);
+  const [allBeerList, setAllBeerList] = useState<Beers[]>([]);
   const [isError, setIsError] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [pageNum, setPageNum] = useState<number>(1);
@@ -27,7 +28,7 @@ const ListAllBeers = () => {
     return query;
   };
 
-  const fetchBeerDetails = async (pageNo: any) => {
+  const fetchBeerDetails = async (pageNo: number) => {
     setIsLoading(true);
 
     try {
@@ -45,7 +46,7 @@ const ListAllBeers = () => {
     fetchMoreBeerDetails(nextPageNum);
   };
 
-  const fetchMoreBeerDetails = async (pageNo: any) => {
+  const fetchMoreBeerDetails = async (pageNo: number) => {
     setIsLoadMoreLoading(true);
     let newData: any = [];
     newData = newData.concat(allBeerList);
