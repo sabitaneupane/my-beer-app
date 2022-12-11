@@ -2,15 +2,16 @@ import React from "react";
 import { Card, Row, Col, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { beerImg } from "../../../Images";
+import { Beers, IngredientsDetails } from "../../../Types/beers";
 
 interface IPros {
-  beerData: any;
+  beerData: Beers[];
 }
 
 const BeerCardView = (props: IPros) => {
   const { beerData } = props;
 
-  const getIngredientsDetails = (beer: any) => {
+  const getIngredientsDetails = (beer: Beers) => {
     let ingredientsDetails: any;
     let ingredientsList: any = {};
 
@@ -24,7 +25,7 @@ const BeerCardView = (props: IPros) => {
 
         const ingredientsType = beer.ingredients[ingredientsDetails[i]];
         if (Array.isArray(ingredientsType)) {
-          ingredientsType.map((e: any) => {
+          ingredientsType.map((e: IngredientsDetails) => {
             if (!ingredientsList[ingredientsDetails[i]].includes(e.name)) {
               ingredientsList[ingredientsDetails[i]].push(e.name);
             }
@@ -55,7 +56,7 @@ const BeerCardView = (props: IPros) => {
     );
   };
 
-  const cardImgContent = (beer: any) => {
+  const cardImgContent = (beer: Beers) => {
     return (
       <LazyLoadImage
         alt=""
@@ -65,7 +66,7 @@ const BeerCardView = (props: IPros) => {
       />
     );
   };
-  const toolTipContent = (beer: any) => {
+  const toolTipContent = (beer: Beers) => {
     const ingredients = getIngredientsDetails(beer);
     return (
       <OverlayTrigger
@@ -85,7 +86,7 @@ const BeerCardView = (props: IPros) => {
   return (
     <div className="beer-list-wrapper">
       {beerData &&
-        beerData.map((beer: any, index: number) => {
+        beerData.map((beer: Beers, index: number) => {
           return (
             <Card className="beer-card m-2" key={beer.id ? beer.id : index}>
               <Row>

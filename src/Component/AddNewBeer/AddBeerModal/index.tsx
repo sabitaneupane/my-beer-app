@@ -2,6 +2,7 @@ import React, { useState, useContext } from "react";
 import { Button, Modal, Alert } from "react-bootstrap";
 import AddBeerForm from "../AddBeerForm";
 import MyBeerContext from "../../../Context/myBeerContext";
+import { Beers } from "../../../Types/beers";
 
 interface IProps {
   showAddBeerModal: boolean;
@@ -61,7 +62,7 @@ const AddBeerModal = (props: IProps) => {
     handleClose();
   };
 
-  const handleFormData = (formData: any) => {
+  const handleFormData = (formData: Beers) => {
     setBeerFormData(formData);
   };
 
