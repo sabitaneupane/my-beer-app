@@ -1,6 +1,8 @@
 import React from "react";
 import { Card, Row, Col, OverlayTrigger, Tooltip } from "react-bootstrap";
 import beerImg from "../../../Images/beer-img.png";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 
 interface IPros {
   beerData: any;
@@ -56,10 +58,11 @@ const BeerCardView = (props: IPros) => {
 
   const cardImgContent = (beer: any) => {
     return (
-      <Card.Img
-        variant="bottom"
-        src={beer.image_url ? beer.image_url : beerImg}
+      <LazyLoadImage
+        alt=""
+        effect="blur"
         className={`beers-img ${beer.ingredients && "cursor-pointer"}`}
+        src={beer.image_url ? beer.image_url : beerImg}
       />
     );
   };
