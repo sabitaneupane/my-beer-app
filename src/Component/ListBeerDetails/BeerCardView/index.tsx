@@ -3,6 +3,7 @@ import { Card, Row, Col, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { beerImg } from "../../../Images";
 import { Beers, IngredientsDetails } from "../../../Types/beers";
+import EmptyState from "../../../Utils/EmptyState";
 
 interface IPros {
   beerData: Beers[];

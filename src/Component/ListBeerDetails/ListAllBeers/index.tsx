@@ -6,6 +6,8 @@ import { getAllBeerList } from "../../../API";
 import Error from "../../../Utils/Error";
 import Loading from "../../../Utils/Loading";
 import { Beers } from "../../../Types/beers";
+import { BeersQuery } from "../../../Types";
+import EmptyState from "../../../Utils/EmptyState";
 
 const ListAllBeers = () => {
   const [allBeerList, setAllBeerList] = useState<Beers[]>([]);
@@ -20,7 +22,7 @@ const ListAllBeers = () => {
   }, []);
 
   const queryBuilder = (pageNo: number) => {
-    const query: any = {
+    const query: BeersQuery = {
       page: pageNo,
       perPage: perPageValue,
     };
@@ -67,6 +69,10 @@ const ListAllBeers = () => {
 
   if (isError) {
     return <Error />;
+  }
+
+  if (allBeerList.length === 0 ){
+    return <EmptyState isMyBeers={false} />
   }
 
   return (
