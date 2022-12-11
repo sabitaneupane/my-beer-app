@@ -10,69 +10,54 @@ const ListAllBeers = () => {
   const [allBeerList, setAllBeerList] = useState<any>([]);
   const [isError, setIsError] = useState<boolean>(false);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [perPageValue, setPerPageValue] = useState<number>(4);
-  const [totalClickCounter, setTotalClickCounter] = useState<number>(0);
+  const [pageNum, setPageNum] = useState<number>(1);
   const [isLoadMoreLoading, setIsLoadMoreLoading] = useState<boolean>(false);
-  const [isLoadMoreError, setIsLoadMoreError] = useState<boolean>(false);
-  const [showLoadMoreButton, setShowLoadMoreButton] = useState<boolean>(true);
 
-  const maxNumberOfDataToLoad = 80; // as per API
-  const incrementCounter = 10;
-
+  const perPageValue = 10;
   useEffect(() => {
-    fetchBeerDetails(perPageValue, false);
+    fetchBeerDetails(pageNum);
   }, []);
 
-  const fetchBeerDetails = async (
-    perPageValue: any,
-    isLoadMoreFetch: boolean
-  ) => {
-
-    if (isLoadMoreFetch) {
-      setIsLoadMoreLoading(true);
-    } else {
-      setIsLoading(true);
-    }
-
+  const queryBuilder = (pageNo: number) => {
     const query: any = {
-      page: 1,
+      page: pageNo,
       perPage: perPageValue,
     };
+
+    return query;
+  };
+
+  const fetchBeerDetails = async (pageNo: any) => {
+    setIsLoading(true);
+
     try {
-      const data = await getAllBeerList(query);
+      const data = await getAllBeerList(queryBuilder(pageNo));
       setAllBeerList(data);
     } catch (error) {
-      if (isLoadMoreFetch) {
-        setIsLoadMoreError(true);
-      } else {
-        setIsError(true);
-      }
+      setIsError(true);
     }
-
-    if (isLoadMoreFetch) {
-      setIsLoadMoreLoading(false);
-    } else {
-      setIsLoading(false);
-    }
+    setIsLoading(false);
   };
 
   const loadMoreDetails = () => {
-    let newPerPageValue;
-    if (perPageValue + incrementCounter <= maxNumberOfDataToLoad) {
-      newPerPageValue = perPageValue + incrementCounter;
-    } else {
-      newPerPageValue = maxNumberOfDataToLoad;
+    const nextPageNum = pageNum + 1;
+    setPageNum(nextPageNum);
+    fetchMoreBeerDetails(nextPageNum);
+  };
+
+  const fetchMoreBeerDetails = async (pageNo: any) => {
+    setIsLoadMoreLoading(true);
+    let newData: any = [];
+    newData = newData.concat(allBeerList);
+
+    try {
+      const data = await getAllBeerList(queryBuilder(pageNo));
+      setAllBeerList(newData.concat(data));
+    } catch (error) {
+      console.log("error:", error);
     }
 
-    fetchBeerDetails(newPerPageValue, true);
-
-    if (!isLoadMoreError) {
-      setPerPageValue(newPerPageValue);
-      setTotalClickCounter(totalClickCounter + 1);
-      setShowLoadMoreButton(
-        perPageValue + incrementCounter <= maxNumberOfDataToLoad
-      );
-    }
+    setIsLoadMoreLoading(false);
   };
 
   if (isLoading) {
@@ -89,12 +74,10 @@ const ListAllBeers = () => {
       {isLoadMoreLoading ? (
         <p className="text-align-center load-more-button mt-4"> Loading ... </p>
       ) : (
-        showLoadMoreButton && (
-          <p className="load-more-button" onClick={() => loadMoreDetails()}>
-            <span> Load More </span>
-            <FontAwesomeIcon icon={faChevronDown} />
-          </p>
-        )
+        <p className="load-more-button" onClick={() => loadMoreDetails()}>
+          <span> Load More </span>
+          <FontAwesomeIcon icon={faChevronDown} />
+        </p>
       )}
       <div className="space-container"></div>
     </>
