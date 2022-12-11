@@ -116,6 +116,7 @@
   border: 0px;
 }
 
+/* customize boostrap css */
 .list-beer-container .nav-tabs .nav-item .nav-link,
 .list-beer-container .nav-tabs .nav-item.show .nav-link,
 .list-beer-container .nav-tabs .nav-item.hover .nav-link,
@@ -127,7 +128,22 @@
 .list-beer-container .nav-tabs .nav-item:hover .nav-link,
 .list-beer-container .nav-tabs .nav-link.active {
   color: black;
+  border-bottom: 2px solid #2b65bd;
 }
+
+.modal-header,
+.modal-body,
+.modal-footer {
+  border: 0px;
+}
+
+.btn-primary,
+.btn-primary:hover {
+  background-color: #2b65bd;
+  border-color: #2b65bd;
+}
+
+/* customize boostrap css */
 
 @media only screen and (max-width: 992px) {
   .list-beer-container {
