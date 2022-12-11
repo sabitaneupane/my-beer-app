@@ -91,3 +91,10 @@
 .cursor-pointer{
   cursor: pointer;
 }
+
+@media only screen and (max-width: 600px) {
+  .list-beer-container{
+    width: 100;
+    padding: 0px;
+  }
+}

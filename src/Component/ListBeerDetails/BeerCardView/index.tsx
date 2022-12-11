@@ -95,7 +95,7 @@ const BeerCardView = (props: IPros) => {
           {beerData &&
             beerData.map((beer: any, index: number) => {
               return (
-                <Col xs={isMobileView ? 12 : 6}>
+                <Col key={index} xs={isMobileView ? 12 : 6}>
                   <Card
                     className="beer-card m-2"
                     key={beer.id ? beer.id : index}
