@@ -102,6 +102,16 @@
   margin: 20px;
 }
 
+.beer-card{
+  border-color: #F3F8FD;
+  box-shadow: 2px 1px #F3F8FD
+}
+
+.beer-card:hover{
+  background-color: #F3F8FD;
+  transition: 0.5s;
+}
+
 @media only screen and (max-width: 992px) {
   .list-beer-container {
     width: 100%;
