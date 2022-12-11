@@ -1,8 +1,7 @@
 import React from "react";
 import { Card, Row, Col, OverlayTrigger, Tooltip } from "react-bootstrap";
-import beerImg from "../../../Images/beer-img.png";
 import { LazyLoadImage } from "react-lazy-load-image-component";
-import "react-lazy-load-image-component/src/effects/blur.css";
+import { beerImg } from "../../../Images";
 
 interface IPros {
   beerData: any;

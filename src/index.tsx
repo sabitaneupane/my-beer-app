@@ -2,9 +2,8 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
-import "bootstrap/dist/css/bootstrap.min.css";
-import "./Style/index.css";
-import "./Style/App.css";
+
+import "./Style";
 import { MyBeerProvider } from "./Context/myBeerContext";
 
 const root = ReactDOM.createRoot(
