@@ -81,13 +81,13 @@ const BeerCardView = (props: IPros) => {
   };
 
   return (
-    <>
+    <div className="beer-list-wrapper">
       {beerData &&
         beerData.map((beer: any, index: number) => {
           return (
             <Card className="beer-card m-2" key={beer.id ? beer.id : index}>
               <Row>
-                <Col xs={2} className="card-img-section">
+                <Col xs={3} sm={3} md={2} lg={2} className="card-img-section">
                   {beer.ingredients
                     ? toolTipContent(beer)
                     : cardImgContent(beer)}
@@ -111,7 +111,7 @@ const BeerCardView = (props: IPros) => {
             </Card>
           );
         })}
-    </>
+    </div>
   );
 };
 

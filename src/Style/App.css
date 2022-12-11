@@ -9,7 +9,7 @@
 }
 
 .list-beer-container {
-  width: 80%;
+  width: 98%;
   height: 100vh;
   margin: auto;
   margin-top: 40px;
@@ -21,8 +21,8 @@
 }
 
 .beers-img {
-  margin: 20px 40px 10px;
-  width: 40px;
+  margin: 18px 38px 10px;
+  width: 32px;
   max-height: 120px;
 }
 
@@ -88,6 +88,70 @@
   padding: 10px;
 }
 
-.cursor-pointer{
+.cursor-pointer {
   cursor: pointer;
+}
+
+.beer-list-wrapper {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+.beer-list-wrapper > div {
+  flex: 1 1 40%;
+  margin: 20px;
+}
+
+.beer-card {
+  border-color: #f3f8fd;
+  box-shadow: 2px 1px #f3f8fd;
+}
+
+.beer-card:hover {
+  background-color: #f3f8fd;
+  transition: 0.5s;
+}
+
+.list-beer-container .nav-tabs {
+  border: 0px;
+}
+
+/* customize boostrap css */
+.list-beer-container .nav-tabs .nav-item .nav-link,
+.list-beer-container .nav-tabs .nav-item.show .nav-link,
+.list-beer-container .nav-tabs .nav-item.hover .nav-link,
+.list-beer-container .nav-tabs .nav-link.active {
+  border: 0px;
+  color: rgb(142, 138, 138);
+}
+
+.list-beer-container .nav-tabs .nav-item:hover .nav-link,
+.list-beer-container .nav-tabs .nav-link.active {
+  color: black;
+  border-bottom: 2px solid #2b65bd;
+}
+
+.modal-header,
+.modal-body,
+.modal-footer {
+  border: 0px;
+}
+
+.btn-primary,
+.btn-primary:hover {
+  background-color: #2b65bd;
+  border-color: #2b65bd;
+}
+
+/* customize boostrap css */
+
+@media only screen and (max-width: 992px) {
+  .list-beer-container {
+    width: 100%;
+    padding: 0px;
+  }
+
+  .beer-list-wrapper > div {
+    flex: 1 1 100%;
+  }
 }

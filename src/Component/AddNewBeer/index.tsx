@@ -14,6 +14,7 @@ const AddNewBeerDetails = () => {
       <div className="add-beer-button-container">
         <Button
           variant="primary"
+          className="add-beer-button"
           size="sm"
           onClick={() => handleAddNewBeerButton(true)}
         >
