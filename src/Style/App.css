@@ -88,13 +88,27 @@
   padding: 10px;
 }
 
-.cursor-pointer{
+.cursor-pointer {
   cursor: pointer;
 }
 
-@media only screen and (max-width: 600px) {
-  .list-beer-container{
-    width: 100;
+.beer-list-wrapper {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+}
+.beer-list-wrapper > div {
+  flex: 1 1 40%;
+  margin: 20px;
+}
+
+@media only screen and (max-width: 992px) {
+  .list-beer-container {
+    width: 100%;
     padding: 0px;
+  }
+
+  .beer-list-wrapper > div {
+    flex: 1 1 100%;
   }
 }
