@@ -59,10 +59,11 @@ const BeerCardView = (props: IProps) => {
   const cardImgContent = (beer: Beers) => {
     return (
       <LazyLoadImage
-        alt=""
+        alt={beer.name}
         effect="blur"
         className={`beers-img ${beer.ingredients && "cursor-pointer"}`}
         src={beer.image_url ? beer.image_url : beerImg}
+        data-testid="lazy-load-image"
       />
     );
   };
