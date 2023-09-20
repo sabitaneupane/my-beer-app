@@ -9,7 +9,7 @@ jest.mock("./ListAllBeers", () => {
   };
 });
 
-jest.mock("./ListMyBeer", () => {
+jest.mock("./ListMyBeers", () => {
   return function ListMyBeers() {
     return <div data-testid="list-my-beers">ListMyBeers Component</div>;
   };
