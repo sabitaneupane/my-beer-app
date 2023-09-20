@@ -4,7 +4,7 @@ import ListAllBeers from "./ListAllBeers";
 import AddNewBeerDetails from "../AddNewBeer";
 import { byDefaultActiveTabKey } from "../../Constant";
 import Loading from "../../Utils/Loading";
-const ListMyBeers = React.lazy(() => import("./ListMyBeer"));
+const ListMyBeers = React.lazy(() => import("./ListMyBeers"));
 
 const ListBeerDetails = () => {
   const [selectedTab, setSelectedTab] = useState<string | null>(
