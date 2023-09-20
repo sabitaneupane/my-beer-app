@@ -33,10 +33,10 @@ jobs:
         with:
           node-version: ${{ steps.set-node-version.outputs.node_version }}
 
-      - name: Run install
+      - name: Run Install
         run: npm install
 
-      - name: Run test
+      - name: Run Test
         run: npm run test
 
       - name: Run Build
