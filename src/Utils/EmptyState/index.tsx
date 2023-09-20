@@ -32,6 +32,7 @@ const EmptyState = (props: IProps) => {
 
       {showAddBeerModal && (
         <AddBeerModal
+          data-testid="add-beer-modal"
           showAddBeerModal={showAddBeerModal}
           handleAddNewBeerButton={handleAddNewBeerButton}
         />

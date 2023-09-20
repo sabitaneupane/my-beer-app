@@ -7,7 +7,7 @@ const ListMyBeers = () => {
   const { data } = useContext(MyBeerContext);
 
   if (!data || data.length === 0) {
-    return <EmptyState isMyBeers={true}/>;
+    return <EmptyState isMyBeers={true} />;
   }
 
   return (

@@ -3,13 +3,12 @@ import { Card, Row, Col, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import { beerImg } from "../../../Images";
 import { Beers, IngredientsDetails } from "../../../Types/beers";
-import EmptyState from "../../../Utils/EmptyState";
 
-interface IPros {
+interface IProps {
   beerData: Beers[];
 }
 
-const BeerCardView = (props: IPros) => {
+const BeerCardView = (props: IProps) => {
   const { beerData } = props;
 
   const getIngredientsDetails = (beer: Beers) => {
@@ -60,10 +59,11 @@ const BeerCardView = (props: IPros) => {
   const cardImgContent = (beer: Beers) => {
     return (
       <LazyLoadImage
-        alt=""
+        alt={beer.name}
         effect="blur"
         className={`beers-img ${beer.ingredients && "cursor-pointer"}`}
         src={beer.image_url ? beer.image_url : beerImg}
+        data-testid="lazy-load-image"
       />
     );
   };

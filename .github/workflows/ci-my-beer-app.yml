@@ -1,0 +1,43 @@
+name: "CI - Unit Test"
+
+on:
+  push:
+    paths:
+      - "**"
+    branches:
+      - main
+      - master
+  pull_request:
+    paths:
+      - "**"
+
+jobs:
+  ApplyIPO:
+    name: Unit Test
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Extract Node Version
+        id: set-node-version
+        run: |
+          node_version=$(cat .nvmrc)
+          [ -z "$node_version" ] && node_version=^14.17.1
+          echo "node_version=$(echo $node_version)" >> $GITHUB_OUTPUT
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-version: ${{ steps.set-node-version.outputs.node_version }}
+
+      - name: Run Install
+        run: npm install
+
+      - name: Run Test
+        run: npm run test
+
+      - name: Run Build
+        run: npm run build
