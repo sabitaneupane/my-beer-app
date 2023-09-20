@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import BeerCardView from "../BeerCardView";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons";
@@ -15,33 +15,40 @@ const ListAllBeers = () => {
   const [pageNum, setPageNum] = useState<number>(1);
   const [isLoadMoreLoading, setIsLoadMoreLoading] = useState<boolean>(false);
   const [hasMoreData, setHasMoreData] = useState<boolean>(true);
+  const [initialLoad, setInitialLoad] = useState<boolean>(true);
 
   const perPageValue = 10;
 
+  const fetchData = useCallback(
+    async (pageNo: number, isFetchingMore: boolean) => {
+      try {
+        const data = await getAllBeerList(queryBuilder(pageNo));
+        setHasMoreData(data.length >= perPageValue);
+        setAllBeerList((prevData) =>
+          isFetchingMore ? [...prevData, ...data] : data
+        );
+      } catch (error) {
+        setIsError(true);
+      } finally {
+        setIsLoading(false);
+        setIsLoadMoreLoading(false);
+      }
+    },
+    []
+  );
+
   useEffect(() => {
-    setIsLoading(true);
-    fetchData(pageNum, false);
-  }, []);
+    if (initialLoad) {
+      setIsLoading(true);
+      fetchData(pageNum, false);
+      setInitialLoad(false);
+    }
+  }, [pageNum, fetchData, initialLoad]);
 
   const queryBuilder = (pageNo: number) => ({
     page: pageNo,
     perPage: perPageValue,
   });
-
-  const fetchData = async (pageNo: number, isFetchingMore: boolean) => {
-    try {
-      const data = await getAllBeerList(queryBuilder(pageNo));
-      setHasMoreData(data.length >= perPageValue);
-      setAllBeerList((prevData) =>
-        isFetchingMore ? [...prevData, ...data] : data
-      );
-    } catch (error) {
-      setIsError(true);
-    } finally {
-      setIsLoading(false);
-      setIsLoadMoreLoading(false);
-    }
-  };
 
   const loadMoreDetails = () => {
     const nextPageNum = pageNum + 1;

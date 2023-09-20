@@ -25,7 +25,7 @@ const BeerCardView = (props: IProps) => {
 
         const ingredientsType = beer.ingredients[ingredientsDetails[i]];
         if (Array.isArray(ingredientsType)) {
-          ingredientsType.map((e: IngredientsDetails) => {
+          ingredientsType.forEach((e: IngredientsDetails) => {
             if (!ingredientsList[ingredientsDetails[i]].includes(e.name)) {
               ingredientsList[ingredientsDetails[i]].push(e.name);
             }
@@ -45,7 +45,7 @@ const BeerCardView = (props: IProps) => {
 
     if (list) {
       for (let i = 0; i <= list.length - 1; i++) {
-        data = data + "\n" + `"${list[i]}": ${ingredients[list[i]].toString()}`;
+        data = `${data}\n"${list[i]}": ${ingredients[list[i]].toString()}`;
       }
     }
 

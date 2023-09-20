@@ -21,15 +21,14 @@ export const MyBeerProvider = ({ children }: any) => {
   }, []);
 
   const getCustomMyBeers = () => {
-    const data =
-      document.cookie
-        .match("(^|;)\\s*" + "custom-my-beers" + "\\s*=\\s*([^;]+)")
-        ?.pop() || "";
+    const cookieData = new RegExp(`(^|;)\\s*${"custom-my-beers"}\\s*=\\s*([^;]+)`);
+    const data = document.cookie.match(cookieData)?.pop() || "";
+  
     if (data) {
       setBeerData(JSON.parse(data));
     }
   };
-
+  
   const addCustomBeerDetails = (customData: Beers) => {
     let newData: Beers[] = [];
     newData = newData.concat(beerData);
