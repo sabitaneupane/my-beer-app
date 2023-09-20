@@ -12,27 +12,28 @@ const BeerCardView = (props: IProps) => {
   const { beerData } = props;
 
   const getIngredientsDetails = (beer: Beers) => {
-    let ingredientsDetails: any;
-    let ingredientsList: any = {};
+    const ingredientsList: any = {};
 
     if (beer && beer.ingredients) {
-      ingredientsDetails = Object.keys(beer.ingredients);
-      for (let i = 0; i <= ingredientsDetails.length - 1; i++) {
-        ingredientsList = {
-          ...ingredientsList,
-          [ingredientsDetails[i]]: [],
-        };
-
-        const ingredientsType = beer.ingredients[ingredientsDetails[i]];
-        if (Array.isArray(ingredientsType)) {
-          ingredientsType.forEach((e: IngredientsDetails) => {
-            if (!ingredientsList[ingredientsDetails[i]].includes(e.name)) {
-              ingredientsList[ingredientsDetails[i]].push(e.name);
+      for (const ingredientType in beer.ingredients) {
+        if (beer.ingredients.hasOwnProperty(ingredientType)) {
+          const ingredientsType = beer.ingredients[ingredientType];
+          if (Array.isArray(ingredientsType)) {
+            ingredientsType.forEach((e: IngredientsDetails) => {
+              if (!ingredientsList[ingredientType]) {
+                ingredientsList[ingredientType] = [];
+              }
+              if (!ingredientsList[ingredientType].includes(e.name)) {
+                ingredientsList[ingredientType].push(e.name);
+              }
+            });
+          } else {
+            // for string
+            if (!ingredientsList[ingredientType]) {
+              ingredientsList[ingredientType] = [];
             }
-          });
-        } else {
-          // for string
-          ingredientsList[ingredientsDetails[i]].push(ingredientsType);
+            ingredientsList[ingredientType].push(ingredientsType);
+          }
         }
       }
     }
@@ -40,12 +41,11 @@ const BeerCardView = (props: IProps) => {
   };
 
   const showIngredientDetails = (ingredients: any) => {
-    let list = ingredients && Object.keys(ingredients);
     let data: string = "";
 
-    if (list) {
-      for (let i = 0; i <= list.length - 1; i++) {
-        data = `${data}\n"${list[i]}": ${ingredients[list[i]].toString()}`;
+    for (const ingredientType in ingredients) {
+      if (ingredients.hasOwnProperty(ingredientType)) {
+        data = `${data}\n"${ingredientType}": ${ingredients[ingredientType].toString()}`;
       }
     }
 
@@ -67,6 +67,7 @@ const BeerCardView = (props: IProps) => {
       />
     );
   };
+
   const toolTipContent = (beer: Beers) => {
     const ingredients = getIngredientsDetails(beer);
     return (
