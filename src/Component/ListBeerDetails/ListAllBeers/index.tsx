@@ -6,7 +6,6 @@ import { getAllBeerList } from "../../../API";
 import Error from "../../../Utils/Error";
 import Loading from "../../../Utils/Loading";
 import { Beers } from "../../../Types/beers";
-import { BeersQuery } from "../../../Types";
 import EmptyState from "../../../Utils/EmptyState";
 
 const ListAllBeers = () => {
@@ -15,52 +14,40 @@ const ListAllBeers = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [pageNum, setPageNum] = useState<number>(1);
   const [isLoadMoreLoading, setIsLoadMoreLoading] = useState<boolean>(false);
+  const [hasMoreData, setHasMoreData] = useState<boolean>(true);
 
   const perPageValue = 10;
+
   useEffect(() => {
-    fetchBeerDetails(pageNum);
+    setIsLoading(true);
+    fetchData(pageNum, false);
   }, []);
 
-  const queryBuilder = (pageNo: number) => {
-    const query: BeersQuery = {
-      page: pageNo,
-      perPage: perPageValue,
-    };
+  const queryBuilder = (pageNo: number) => ({
+    page: pageNo,
+    perPage: perPageValue,
+  });
 
-    return query;
-  };
-
-  const fetchBeerDetails = async (pageNo: number) => {
-    setIsLoading(true);
-
+  const fetchData = async (pageNo: number, isFetchingMore: boolean) => {
     try {
       const data = await getAllBeerList(queryBuilder(pageNo));
-      setAllBeerList(data);
+      setHasMoreData(data.length >= perPageValue);
+      setAllBeerList((prevData) =>
+        isFetchingMore ? [...prevData, ...data] : data
+      );
     } catch (error) {
       setIsError(true);
+    } finally {
+      setIsLoading(false);
+      setIsLoadMoreLoading(false);
     }
-    setIsLoading(false);
   };
 
   const loadMoreDetails = () => {
     const nextPageNum = pageNum + 1;
     setPageNum(nextPageNum);
-    fetchMoreBeerDetails(nextPageNum);
-  };
-
-  const fetchMoreBeerDetails = async (pageNo: number) => {
     setIsLoadMoreLoading(true);
-    let newData: any = [];
-    newData = newData.concat(allBeerList);
-
-    try {
-      const data = await getAllBeerList(queryBuilder(pageNo));
-      setAllBeerList(newData.concat(data));
-    } catch (error) {
-      console.log("error:", error);
-    }
-
-    setIsLoadMoreLoading(false);
+    fetchData(nextPageNum, true);
   };
 
   if (isLoading) {
@@ -71,21 +58,23 @@ const ListAllBeers = () => {
     return <Error />;
   }
 
-  if (allBeerList.length === 0 ){
-    return <EmptyState isMyBeers={false} />
+  if (allBeerList.length === 0) {
+    return <EmptyState isMyBeers={false} />;
   }
 
   return (
     <>
       <BeerCardView beerData={allBeerList} />
-      {isLoadMoreLoading ? (
-        <p className="text-align-center load-more-button mt-4"> Loading ... </p>
-      ) : (
-        <p className="load-more-button" onClick={() => loadMoreDetails()}>
-          <span> Load More </span>
-          <FontAwesomeIcon icon={faChevronDown} />
-        </p>
-      )}
+      {hasMoreData ? (
+        isLoadMoreLoading ? (
+          <p className="text-align-center load-more-button mt-4">Loading ...</p>
+        ) : (
+          <p className="load-more-button" onClick={loadMoreDetails}>
+            <span> Load More </span>
+            <FontAwesomeIcon icon={faChevronDown} />
+          </p>
+        )
+      ) : null}
       <div className="space-container"></div>
     </>
   );
